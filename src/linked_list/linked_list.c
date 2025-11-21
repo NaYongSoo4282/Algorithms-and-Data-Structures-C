@@ -28,7 +28,7 @@ int main(){
             insertNode(List, Data);
          }
          else if(Op == Delete){
-            scanf("%d", Data);
+            scanf("%d", &Data);
             e = removeNode(List, Data);
             if(e != Exception){
                 printf("Delete %d\n", Data);
@@ -38,9 +38,19 @@ int main(){
             scanf("%d", &Data);
             G = getNode(List, Data);
          }
+
+        // printf("\n\nRealTime List\n");
+        // printList(List);
     }
 
 
+    freeList(List);
+    printList(List);
+
+    free(List);
+    List = NULL;
+    
+    printList(List);
     return 0;
 }
 
@@ -67,7 +77,7 @@ void insertNode(LinkedList*List, int Data){
 
     Node*NewNode = createNode(Data);
     
-    Node*Current = List;//get Trailer
+    Node*Current = List->Head;//get Trailer
 
     while(Current->Next != NULL){ //O(N)
         Current = Current->Next;        
@@ -90,8 +100,16 @@ int removeNode(LinkedList*List, int Data){
 
     while(Current != NULL){
         if(Current->Data == Data){
+            if(Prev == NULL){
+                List->Head->Next = Current->Next;
+            }
+            else{
             Prev->Next = Current->Next;
+            }
+
+            Current->Next = NULL;
             freeNode(Current);
+
             return Data;
         }
 
@@ -131,15 +149,44 @@ void freeNode(Node* node){
     free(node);
 }
 
-void freeList(LinkedList* List){
-    free(List);
+void freeList(LinkedList* List){ 
+
+    if(List == NULL){
+        printf("Cleaned");
+    }
+
+    Node* Cleaner = NULL;
+    Node* Trash = NULL;
+
+    Cleaner = List->Head;
+
+    while(List->Head->Next!= NULL){
+        Trash = List->Head;
+        List->Head = List->Head->Next;
+
+        Trash->Next = NULL; //should disconnect?
+
+        freeNode(Trash);
+        Trash = NULL;
+    }
+    
+    printList(List);
+    
 }
 
 void printList(LinkedList*List){
+
+    if(List == NULL){
+        printf("NoListException\n");
+
+        return;
+    }
+    
     Node*Current = List->Head->Next;
 
     while(Current != NULL){
         printf(" %d", Current->Data);
+        Current = Current->Next;
     }
-    printf("\n");
+    printf("\n\n");
 }
