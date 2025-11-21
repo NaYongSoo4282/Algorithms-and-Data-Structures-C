@@ -45,12 +45,12 @@ int main(){
 
 
     freeList(List);
-    printList(List);
+    printList(List); // List is still allocated 
 
-    free(List);
-    List = NULL;
-    
-    printList(List);
+    free(List); // deallocate List
+    List = NULL;// List <- NULL
+
+    printList(List);// if (List = NULL) is not proccessed, then trash value is in. So trash List will output
     return 0;
 }
 
@@ -164,7 +164,8 @@ void freeList(LinkedList* List){
         Trash = List->Head;
         List->Head = List->Head->Next;
 
-        Trash->Next = NULL; //should disconnect?
+        Trash->Next = NULL; //should disconnect? I think here is Okay if do or not
+        //cuz we will move on and we cant find Trash's value. Head goes Next
 
         freeNode(Trash);
         Trash = NULL;
