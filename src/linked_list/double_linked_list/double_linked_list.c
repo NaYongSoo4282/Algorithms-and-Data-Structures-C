@@ -69,7 +69,7 @@ int removeNode(DLL*List, int Data){
     }
 
    
-    while(Current != NULL){
+    while(Current != NULL && Current->Data != Dummy){
         if(Current->Data == Data){
             Current->Prev->Next = Current->Next; //Prev's Next is Current->Next
             Current->Next->Prev = Current->Prev; //Next's Prev is Current->Prev
@@ -98,7 +98,7 @@ int getNode(DLL* List, int Data){
         return Exception;
     }
 
-    while(Current != NULL){
+    while(Current != NULL && Current->Data != Dummy){
 
         if(Current->Data == Data){
             return Index;
