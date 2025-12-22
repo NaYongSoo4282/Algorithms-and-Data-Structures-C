@@ -4,6 +4,6 @@ typedef struct tagStack{
     DLL * Storage;
 }Stack;
 
-Stack* initStack(Stack*S);
-void push(Node*NewNode, Stack*S);
-Node* pop(Stack*S);
+Stack* initStack();
+void push(int Data, Stack*S);
+int pop(Stack*S);
