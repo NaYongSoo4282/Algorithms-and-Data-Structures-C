@@ -16,12 +16,14 @@ int removeNode(DLL*List, int Data);
 int getNode(DLL*List, int Data);
 void freeList(DLL*List);
 
+#if 0
 int main(){
 
     unitTest();
     
     return 0;
 }
+#endif 
 
 DLL* initList(){
     DLL*NewList = (DLL*)malloc(sizeof(DLL));
